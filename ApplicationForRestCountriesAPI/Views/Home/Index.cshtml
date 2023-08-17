@@ -1,0 +1,60 @@
+﻿
+@using ApplicationForRestCountriesAPI.Models
+@using Microsoft.AspNetCore.Mvc
+
+@using System.Diagnostics
+@using System.Net
+@using System.Text.Json
+@using Newtonsoft.Json
+
+
+
+@model Country
+
+@{
+
+    ViewData["Title"] = "Home Page";
+    var request = new countriesAPI(@"https://restcountries.com/v3.1/all?fields=name,capital,flag,lang");
+    countriesAPI.Run();
+
+    //var deserializedcountry = JsonConvert.DeserializeObject<Country>(countriesAPI.Response);
+
+}
+
+
+<section class="d-block">
+    <div class="d-flex">
+        <input class="form-control me-2 w-100" type="search" id="searchText" placeholder="Поиск по странам" required>
+        <button class="btn btn-outline-success" type="submit" >Поиск</button>
+    </div>
+    <div class="mt-3">
+        <table class=" table" id="tableCountries" >
+        <thead>Страны</thead>
+            
+                <tr  >
+                    <td ></td><td></td><td></td>
+                    </tr>
+            
+               <tr>
+                    <td><button class="btn-primary">Details</button></td>
+        
+               </tr> 
+          
+    </table>
+    </div>
+    
+</section>
+<script> window.addEventListener('load',function(){
+
+   let country = JSON.parse("@countriesAPI.Response");
+   console.log(country);
+   for (var i = 0; i< country.length;i++){
+       let item = country[i];
+       let name = item.name;
+       let flag = item.flag;
+       let capital = item.capital;
+
+
+   }
+   });
+</script>
