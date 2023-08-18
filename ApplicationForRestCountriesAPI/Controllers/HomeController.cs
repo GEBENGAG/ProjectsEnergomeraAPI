@@ -12,7 +12,7 @@ namespace ApplicationForRestCountriesAPI.Controllers
         private readonly ILogger<HomeController> _logger;
         public string url = @"https://restcountries.com/v3.1/all";
         static HttpClient httpClient = new HttpClient();
-
+        List<CountriesViewModel> countriesViews;
 
         HttpWebRequest _request;
         
@@ -23,28 +23,7 @@ namespace ApplicationForRestCountriesAPI.Controllers
         {
 
             _logger = logger;
-            //_request = (HttpWebRequest)WebRequest.Create(url);
-            //_request.Method = "GET";
-            //try
-            //{
-            //    HttpWebResponse response = (HttpWebResponse)_request.GetResponse();
-            //    var stream = response.GetResponseStream();
-            //    if (stream != null) Response = new StreamReader(stream).ReadToEnd();
-            //    try
-            //    {
-                  
-            //    }
-            //    catch (Exception) 
-            //    {
-            //    View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-
-            //    }
-            //}
-            //catch (Exception)
-            //{
-            //    View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-            //}
-
+         
 
 
         }
@@ -52,10 +31,19 @@ namespace ApplicationForRestCountriesAPI.Controllers
 
         public IActionResult Index()
         {
-           
-            
-            return View();
+            var request = new countriesAPI(@"https://restcountries.com/v3.1/all?fields=name,capital,flag,lang");
+            countriesAPI.Run();
 
+           List<CountriesModel> countriesViews = JsonConvert.DeserializeObject<List<CountriesModel>>(countriesAPI.Response);
+
+            return View(new CountriesViewModel{
+                Countries = countriesViews
+            });
+            
+        }
+        public IActionResult Details()
+        {
+            return View();
         }
         
         

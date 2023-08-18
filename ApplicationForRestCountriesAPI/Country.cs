@@ -10,15 +10,15 @@ namespace ApplicationForRestCountriesAPI
         public static int id { get; set; }
 
         [JsonPropertyName("name")]
-        public static string name { get; set; }
+        public static string? name { get; set; }
         [JsonPropertyName("flag")]
 
-        public static object flag { get; set; }
+        public static string? flag { get; set; }
         [JsonPropertyName("capital")]
-        public static string capital { get; set; }
+        public static string? capital { get; set; }
 
         [JsonPropertyName("lang")]
-        public static string language { get; set; }
+        public static string? language { get; set; }
 
 
     }
